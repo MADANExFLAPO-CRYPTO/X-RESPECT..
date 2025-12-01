@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>X-RESPECT Clan</title>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  * { margin:0; padding:0; box-sizing: border-box; }
+  body, html { width:100%; height:100%; overflow-x: hidden; font-family: Arial, sans-serif; color: white; }
+
+  /* VIDEO BACKGROUND */
+  .video-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -100;
+    pointer-events: none;
+  }
+  .video-bg iframe {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  /* WELCOME PAGES */
+  .welcomePage {
+    position: fixed;
+    top:0; left:0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 10;
+  }
+  .welcomePage button {
+    margin-top: 30px;
+    padding: 15px 40px;
+    font-size: 1.3em;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    background: #ff4500;
+    color: white;
+    font-weight: bold;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .welcomePage button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+  }
+
+  #mainPage, #developerPage {
+    display: none;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+    z-index: 5;
+    position: relative;
+  }
+
+  .iconBtn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px; height: 100px;
+    margin: 15px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    font-size: 2.5em;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .iconBtn:hover { transform: scale(1.2); background: rgba(255,69,0,0.8); }
+  .discord { background: #7289da; }
+  .whatsapp { background: #25d366; }
+  .tiktok { background: #000; }
+  .plus { background: #ff0; color: #000; }
+  .instagram { background: #c13584; }
+
+  /* MUSIC TOGGLE BUTTON */
+  #musicToggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 50;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 50px;
+    background: rgba(255,69,0,0.8);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  }
+</style>
+</head>
+<body>
+
+<!-- Video Background -->
+<div class="video-bg">
+  <iframe src="https://www.youtube.com/embed/B6ZrAaGpsNI?autoplay=1&mute=1&controls=0&loop=1&playlist=B6ZrAaGpsNI"
+    frameborder="0" allow="autoplay; fullscreen"></iframe>
+</div>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Music Toggle Button -->
+<button id="musicToggle">🔇 Mute</button>
+
+<!-- Initial Welcome Page -->
+<div id="welcome1" class="welcomePage">
+  <div style="font-size:4em;">X-RESPECT</div>
+  <button onclick="showMainPage()">Click to Enter 🚀</button>
+</div>
+
+<!-- Second Welcome Page -->
+<div id="welcome2" class="welcomePage" style="display:none;">
+  <div style="font-size:4em;">MADANE</div>
+  <button onclick="enterDeveloperPage()">Click to Enter 🚀</button>
+</div>
+
+<!-- Main Page -->
+<div id="mainPage">
+  <h2>Main Page</h2>
+  <div class="iconBtn discord" onclick="window.open('https://discord.gg/z555A8bR', '_blank')"><i class="fab fa-discord"></i></div>
+  <div class="iconBtn whatsapp" onclick="window.open('https://wa.me/212682912651', '_blank')"><i class="fab fa-whatsapp"></i></div>
+  <div class="iconBtn tiktok" onclick="alert('TikTok link will be added later')"><i class="fab fa-tiktok"></i></div>
+  <div class="iconBtn plus" onclick="showSecondWelcome()"><i class="fas fa-plus"></i></div>
+</div>
+
+<!-- Developer Page -->
+<div id="developerPage">
+  <h2>Developer Page</h2>
+  <div class="iconBtn instagram" onclick="window.open('https://www.instagram.com/madane_360/', '_blank')"><i class="fab fa-instagram"></i></div>
+  <div class="iconBtn tiktok" onclick="alert('TikTok link will be added later')"><i class="fab fa-tiktok"></i></div>
+  <div class="iconBtn whatsapp" onclick="window.open('https://wa.me/212682912651', '_blank')"><i class="fab fa-whatsapp"></i></div>
+</div>
+
+<script>
+  const music = document.getElementById('bgMusic');
+  const toggleBtn = document.getElementById('musicToggle');
+
+  // Start muted
+  music.muted = true;
+  toggleBtn.innerText = '🔇 Mute';
+
+  // Toggle music
+  toggleBtn.addEventListener('click', () => {
+    music.muted = !music.muted;
+    toggleBtn.innerText = music.muted ? '🔇 Mute' : '🔊 Unmute';
+  });
+
+  // Show main page directly
+  function showMainPage(){
+    document.getElementById('welcome1').style.display = 'none';
+    document.getElementById('mainPage').style.display = 'block';
+    music.volume = 0.5;
+    music.play();
+  }
+
+  function showSecondWelcome(){
+    document.getElementById('mainPage').style.display = 'none';
+    document.getElementById('welcome2').style.display = 'flex';
+  }
+
+  function enterDeveloperPage(){
+    document.getElementById('welcome2').style.display = 'none';
+    document.getElementById('developerPage').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
