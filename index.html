@@ -8,41 +8,100 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   body, html{width:100%;height:100%;font-family:Arial;color:white;overflow:hidden;}
-  
+
+  /* Background Video */
   .video-bg{
     position:fixed;top:0;left:0;width:100%;height:100%;z-index:-100;
     background: url('https://via.placeholder.com/1920x1080/000000/ffffff?text=Fallback+Background') no-repeat center center/cover;
   }
   .video-bg iframe{width:100%;height:100%;object-fit:cover;border:none;}
-  
+
+  /* Circular Logo with Effects */
+  .logo-container {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .logoX {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: inline-block;
+    cursor: pointer;
+    animation: logoPulse 3s infinite ease-in-out;
+    box-shadow: 0 0 15px yellow;
+    transition: 0.5s;
+  }
+  .logoX:hover {
+    transform: scale(1.2) rotate(5deg);
+    box-shadow: 0 0 35px #ffea00, 0 0 60px orange;
+  }
+  @keyframes logoPulse {
+    0% { transform: scale(1); box-shadow: 0 0 15px yellow; }
+    50% { transform: scale(1.05); box-shadow: 0 0 35px #ffdd00, 0 0 60px orange; }
+    100% { transform: scale(1); box-shadow: 0 0 15px yellow; }
+  }
+
+  .logo-name {
+    margin-top: 10px;
+    font-size: 2em;
+    font-weight: bold;
+    color: yellow;
+    text-shadow: 0 0 10px black, 0 0 20px yellow, 0 0 30px orange;
+    animation: nameGlow 2.5s infinite alternate;
+  }
+  @keyframes nameGlow {
+    0% { text-shadow: 0 0 10px black, 0 0 20px yellow, 0 0 30px orange; color: yellow; }
+    50% { text-shadow: 0 0 20px black, 0 0 35px #ffdd00, 0 0 50px orange; color: #ffd700; }
+    100% { text-shadow: 0 0 10px black, 0 0 20px yellow, 0 0 30px orange; color: yellow; }
+  }
+
+  /* Welcome Page */
   .welcomePage{
     position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.7);
     display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
     animation:fadeIn 1s;
   }
-  
   .welcomePage button{
     margin-top:30px;padding:15px 40px;font-size:1.3em;border:none;border-radius:50px;
     cursor:pointer;background:#ff4500;color:white;font-weight:bold;transition:0.3s;
   }
   .welcomePage button:hover, .welcomePage button:focus{transform:scale(1.1);outline:2px solid white;}
-  
-  #mainPage,#developerPage{display:none;text-align:center;padding-top:50px;}
-  
+
+  /* Main Page */
+  #mainPage {
+    display:none;
+    text-align:center;
+    padding-top:50px;
+  }
+
+  /* Player List Hover */
+  #mainPage ul li {
+    transition: 0.3s;
+    cursor: default;
+  }
+  #mainPage ul li:hover {
+    transform: scale(1.1);
+    color: yellow;
+    text-shadow: 0 0 20px yellow;
+  }
+
+  /* Social Icons */
   .iconBtn{
     width:100px;height:100px;margin:15px;border-radius:50%;display:flex;
     justify-content:center;align-items:center;font-size:2.5em;cursor:pointer;
     transition:0.3s;position:relative;
   }
   .iconBtn:hover, .iconBtn:focus{transform:scale(1.2);outline:2px solid white;}
-  
+
   .discord{background:#7289da;}
   .whatsapp{background:#25d366;}
   .tiktok{background:#000;}
   .plus{background:yellow;color:black;font-weight:bold;box-shadow:0 0 12px yellow;}
   .instagram{background:#c13584;}
 
-  /* Tooltip for plus */
+  /* Tooltip on + */
   .iconBtn.plus::after {
     content: "MADANE'S PROFILE";
     position: absolute;
@@ -66,88 +125,96 @@
     bottom: -60px;
   }
 
-  #mathBox{
-    margin-top:15px;font-size:1.4em;
-    display:none;flex-direction:column;align-items:center;
-    animation:fadeIn 0.5s;
+  /* JOIN Button */
+  .joinBtn {
+    margin-top: 35px;
+    padding: 18px 60px;
+    background: black;
+    border: 3px solid yellow;
+    border-radius: 50px;
+    font-size: 1.6em;
+    font-weight: bold;
+    color: yellow;
+    cursor: pointer;
+    transition: 0.3s;
+    text-shadow: 0 0 10px yellow;
   }
-  
-  #answer{
-    margin-top:10px;padding:10px;width:120px;text-align:center;border-radius:10px;
-    border:none;font-size:1.2em;
+  .joinBtn:hover {
+    transform: scale(1.15);
+    background: yellow;
+    color: black;
+    border-color: white;
+    text-shadow: 0 0 25px black;
   }
-  
-  #feedback{margin-top:10px;font-size:1.2em;font-weight:bold;}
-  
-  .shake{animation:shake 0.4s;}
-  
-  @keyframes shake{
-    0%{transform:translateX(0);}
-    25%{transform:translateX(-10px);}
-    50%{transform:translateX(10px);}
-    75%{transform:translateX(-10px);}
-    100%{transform:translateX(0);}
-  }
-  
-  @keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
-  
-  #musicToggle{
-    position:fixed;bottom:20px;right:20px;padding:12px 18px;border:none;border-radius:50px;
-    background:rgba(255,69,0,0.8);color:white;font-size:16px;cursor:pointer;
-    transition:0.3s;
-  }
-  #musicToggle:hover, #musicToggle:focus{transform:scale(1.05);outline:2px solid white;}
-  
-  /* Mobile responsiveness */
+
+  /* Responsive */
   @media (max-width: 768px) {
     .welcomePage div:first-child {font-size: 2.5em;}
     .iconBtn {width: 80px; height: 80px; font-size: 2em;}
-    #answer {width: 100px;}
+    .logoX {width: 120px; height: 120px;}
+    .logo-name {font-size: 1.5em;}
   }
 </style>
 </head>
 <body>
 
 <div class="video-bg">
-  <iframe src="https://www.youtube.com/embed/B6ZrAaGpsNI?autoplay=1&mute=1&controls=0&loop=1&playlist=B6ZrAaGpsNI&modestbranding=1&rel=0" 
-          title="Background Video"></iframe>
+  <iframe src="https://www.youtube.com/embed/B6ZrAaGpsNI?autoplay=1&mute=1&controls=0&loop=1&playlist=B6ZrAaGpsNI&modestbranding=1&rel=0" title="Background Video"></iframe>
 </div>
 
 <audio id="bgMusic" loop preload="metadata">
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
-<button id="musicToggle" aria-label="Toggle background music">🔇 Mute</button>
+<audio id="clickSound">
+  <source src="https://cdn.pixabay.com/audio/2021/09/06/audio_31f30d370b.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="joinSound">
+  <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_ad95ca3829.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicToggle" aria-label="Toggle background music" style="
+position:fixed;bottom:20px;right:20px;padding:12px 18px;border:none;border-radius:50px;
+background:rgba(255,69,0,0.8);color:white;font-size:16px;cursor:pointer;transition:0.3s;">
+🔇 Mute</button>
 
 <div id="welcome1" class="welcomePage">
   <div style="font-size:4em;">X-RESPECT</div>
   <button onclick="showMainPage()" aria-label="Enter the main page">Click to Enter 🚀</button>
 </div>
 
-<div id="welcome2" class="welcomePage" style="display:none;">
-  <div style="font-size:4em;">SECRET ACCESS</div>
-  
-  <div id="mathBox">
-    <div id="question"></div>
-    <input id="answer" type="number" placeholder="Answer" aria-label="Math answer input">
-    <button onclick="checkAnswer()" aria-label="Submit math answer">Submit</button>
-    <button onclick="resetMath()" aria-label="Reset math puzzle">Reset</button>
-    <div id="feedback"></div>
-  </div>
-  
-  <button id="mathBtn" onclick="showMath()" aria-label="Unlock secret area">Click to Unlock 🔐</button>
-</div>
-
 <div id="mainPage">
-  <h2>X-RESPECT</h2>
+  <!-- Circular Logo with Effects and Name -->
+  <div class="logo-container">
+    <img src="https://i.postimg.cc/m2ygnWPV/589753435-876627304709333-5162296359246638588-n.jpg" 
+         class="logoX" alt="X-RESPECT Logo">
+    <div class="logo-name">X-RESPECT</div>
+  </div>
+
+  <!-- Social Icons -->
   <div class="iconBtn discord" onclick="window.open('https://discord.gg/z555A8bR')"><i class="fab fa-discord"></i></div>
   <div class="iconBtn whatsapp" onclick="window.open('https://wa.me/212682912651')"><i class="fab fa-whatsapp"></i></div>
-  <div class="iconBtn tiktok" onclick="alert('TikTok link coming soon')"><i class="fab fa-tiktok"></i></div>
+  <div class="iconBtn tiktok"><i class="fab fa-tiktok"></i></div>
   <div class="iconBtn plus" onclick="secretGate()"><i class="fas fa-plus"></i></div>
+
+  <!-- Clan Members -->
+  <h3 style="margin-top:40px;font-size:2em;text-shadow:0 0 10px cyan;">CLAN MEMBERS</h3>
+  <ul style="list-style:none;margin-top:15px;font-size:1.5em;line-height:2em;text-shadow:0 0 10px #00ffff;">
+    <li>⚡ X-RP FLAPO</li>
+    <li>⚡ X-RP SKITCHA</li>
+    <li>⚡ X-RP المدمر</li>
+    <li>⚡ X-RP BYNAL</li>
+    <li>⚡ X-RP SHADOW</li>
+    <li>⚡ X-RP SEARGT</li>
+    <li>⚡ X-RP BL</li>
+  </ul>
+
+  <button class="joinBtn">JOIN THE CLAN ⚔</button>
 </div>
 
-<div id="developerPage">
-  <h2>MADANE'S PAGE</h2>
+<div id="developerPage" style="display:none;">
+  <h2 style="margin-bottom:20px;">MADANE'S PAGE</h2>
   <div class="iconBtn instagram" onclick="window.open('https://www.instagram.com/madane_360/')"><i class="fab fa-instagram"></i></div>
   <div class="iconBtn whatsapp" onclick="window.open('https://wa.me/212682912651')"><i class="fab fa-whatsapp"></i></div>
 </div>
@@ -155,73 +222,33 @@
 <script>
   const music = document.getElementById("bgMusic");
   const toggleBtn = document.getElementById("musicToggle");
-  let correctAnswer = 0;
-  
   music.muted = true;
-  
+
   toggleBtn.onclick = () => {
     music.muted = !music.muted;
     toggleBtn.innerText = music.muted ? "🔇 Mute" : "🔊 Playing";
-  };
-  
+  }
+
   function showMainPage() {
     document.getElementById("welcome1").style.display = "none";
     document.getElementById("mainPage").style.display = "block";
     music.volume = 0.5;
-    music.play().catch(() => console.warn('Autoplay blocked.'));
+    music.play().catch(()=>{});
   }
-  
+
   function secretGate() {
     document.getElementById("mainPage").style.display = "none";
-    document.getElementById("welcome2").style.display = "flex";
+    document.getElementById("developerPage").style.display = "block";
   }
-  
-  function showMath() {
-    document.getElementById("mathBox").style.display = "flex";
-    let a = Math.floor(Math.random() * 10) + 1;
-    let b = Math.floor(Math.random() * 10) + 1;
-    correctAnswer = a + b;
-    document.getElementById("question").innerText = `Solve: ${a} + ${b} = ?`;
-    document.getElementById("answer").focus();
+
+  document.querySelector(".logoX").onclick = () => {
+    document.getElementById("clickSound").play();
   }
-  
-  function checkAnswer() {
-    let input = document.getElementById("answer");
-    let feedback = document.getElementById("feedback");
-    let userAnswer = parseInt(input.value);
-    
-    if (isNaN(userAnswer)) {
-      feedback.style.color = "orange";
-      feedback.innerText = "⚠️ Please enter a valid number!";
-      return;
-    }
-    
-    if (userAnswer === correctAnswer) {
-      feedback.style.color = "lime";
-      feedback.innerText = "✔ Correct! Access Granted!";
-      setTimeout(() => {
-        document.getElementById("welcome2").style.display = "none";
-        document.getElementById("developerPage").style.display = "block";
-      }, 900);
-    } else {
-      feedback.style.color = "red";
-      feedback.innerText = "❌ Wrong!";
-      input.classList.add("shake");
-      setTimeout(() => input.classList.remove("shake"), 500);
-      input.value = "";
-    }
+
+  document.querySelector(".joinBtn").onclick = () => {
+    document.getElementById("joinSound").play();
+    setTimeout(() => window.open("https://discord.gg/z555A8bR"), 400);
   }
-  
-  function resetMath() {
-    document.getElementById("mathBox").style.display = "none";
-    document.getElementById("feedback").innerText = "";
-    document.getElementById("answer").value = "";
-    showMath();
-  }
-  
-  document.getElementById("answer").addEventListener("keypress", (e) => {
-    if (e.key === "Enter") checkAnswer();
-  });
 </script>
 
 </body>
